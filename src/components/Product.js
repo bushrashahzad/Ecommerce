@@ -4,27 +4,55 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
+import {useState, useEffect} from "react";
+import axios from "axios";
+
  function Product() {
+  const [products,setProduct] = useState([]);
+
+  const getData = () => {
+    axios.get('https://localhost:7133/api/Product')
+    .then(result => {
+        setProduct(result.data)
+    })
+    .catch((error) => {
+        console.log(error)
+    })
+}
+console.log(products)
+useEffect(() => {
+ getData();
+}, [])
+
+  const content = ""
+  
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <>
+    {products && products.map(product => {
+    return <Card sx={{ maxWidth: 345 }}>
       <CardActionArea>
         <CardMedia
           component="img"
           height="140"
-          image="/static/images/cards/contemplative-reptile.jpg"
-          alt="green iguana"
+          image={require(`../images/${product.image}`)}
+          alt=""
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            Lizard
+            {product.productName}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
+            {product.productDescription}
           </Typography>
+          <Typography variant="body2" color="text.secondary">
+            {product.price}
+          </Typography>
+          <button>Add to cart</button>
         </CardContent>
       </CardActionArea>
     </Card>
+  })}
+    </>
   );
 }
 
