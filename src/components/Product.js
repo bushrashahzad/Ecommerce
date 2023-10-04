@@ -6,7 +6,9 @@ import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 import {useState, useEffect} from "react";
 import axios from "axios";
-
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Container from 'react-bootstrap/Container';
  function Product() {
   const [products,setProduct] = useState([]);
 
@@ -24,16 +26,13 @@ useEffect(() => {
  getData();
 }, [])
 
-  const content = ""
-  
-  return (
-    <>
-    {products && products.map(product => {
-    return <Card sx={{ maxWidth: 345 }}>
+  const content = products && products.map(product => {
+    return (
+      <Col>
+      <Card sx={{ maxWidth: 200 }}>
       <CardActionArea>
         <CardMedia
           component="img"
-          height="140"
           image={require(`../images/${product.image}`)}
           alt=""
         />
@@ -51,7 +50,17 @@ useEffect(() => {
         </CardContent>
       </CardActionArea>
     </Card>
-  })}
+    </Col>
+  
+  )})
+  
+  return (
+    <>
+   <Container>
+      <Row>
+    {content}  
+    </Row>
+    </Container>
     </>
   );
 }
