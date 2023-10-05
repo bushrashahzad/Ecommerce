@@ -1,18 +1,8 @@
 import * as React from 'react';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import { CardActionArea } from '@mui/material';
 import {useState, useEffect} from "react";
 import axios from "axios";
-// import Row from 'react-bootstrap/Row';
-// import Col from 'react-bootstrap/Col';
-// import Container from 'react-bootstrap/Container';
-import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button'
 
  function Product() {
   const [products,setProduct] = useState([]);
@@ -30,46 +20,36 @@ console.log(products)
 useEffect(() => {
  getData();
 }, [])
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-}));
 
   const content = products && products.map(product => {
     return ( 
-      <Box sx={{ flexGrow: 1 }}>
-      <Grid>
-      <Card sx={{ maxWidth: 200 }}>
-      <CardActionArea>
-        <CardMedia
-          component="img"
-          image={require(`../images/${product.image}`)}
-          alt=""
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {product.productName}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {product.productDescription}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {product.price}
-          </Typography>
-          <button>Add to cart</button>
-        </CardContent>
-      </CardActionArea>
-    </Card>
-   </Grid>
-   </Box>
+      <>
+      {Array.from({ length: 1 }).map((_, idx) => (
+        <div className='col'>
+           <Card className="card1" key={product.Id}>
+             <Card.Img style={{width: 200, height: 200}} variant="top" src={require(`../images/${product.image}`)}/>
+             <Card.Body>
+               <Card.Title>
+                 {product.productName.toUpperCase()}
+               </Card.Title>
+               <Card.Text>
+                 {product.price} PKR
+               </Card.Text>
+               <Button style={{backgroundColor:"#008080"}}>Add to Cart</Button>
+             </Card.Body>
+           </Card>
+         </div>
+       ))}</>
   )})
   
   return (
     <>
-    {content}
+   
+    <div className='container'>
+      <div className='row'>
+       {content}
+      </div>
+    </div>
     </>
   );
 }
