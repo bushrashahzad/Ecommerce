@@ -2,7 +2,8 @@ import * as React from 'react';
 import {useState, useEffect} from "react";
 import axios from "axios";
 import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button'
+import Button from 'react-bootstrap/Button';
+import {Link} from 'react-router-dom';
 
  function Product() {
   const [products,setProduct] = useState([]);
@@ -27,7 +28,7 @@ useEffect(() => {
       {Array.from({ length: 1 }).map((_, idx) => (
         <div className='col'>
            <Card className="card1" key={product.Id}>
-             <Card.Img style={{width: 200, height: 200}} variant="top" src={require(`../images/${product.image}`)}/>
+             <Link to="/productpage"><Card.Img style={{width: 200, height: 200}} variant="top" src={require(`../images/${product.image}`)}/></Link>
              <Card.Body>
                <Card.Title>
                  {product.productName.toUpperCase()}
@@ -35,7 +36,7 @@ useEffect(() => {
                <Card.Text>
                  {product.price} PKR
                </Card.Text>
-               <Button style={{backgroundColor:"#008080"}}>Add to Cart</Button>
+               <Link to="/productpage"><Button style={{backgroundColor:"#008080"}}>Add to Cart</Button></Link>
              </Card.Body>
            </Card>
          </div>
